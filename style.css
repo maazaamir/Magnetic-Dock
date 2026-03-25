@@ -1,8 +1,8 @@
 :root {
-    --bg-color: #050505; /* Deepest black */
+    --bg-color: #050505; 
     --dock-bg: rgba(255, 255, 255, 0.03);
     --item-bg: rgba(255, 255, 255, 0.08);
-    --accent: #6366f1;
+    --accent: #6366f1; /* Indigo Accent */
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
@@ -18,7 +18,7 @@ body {
     overflow: hidden;
 }
 
-/* Background Text Styling */
+/* --- Fixed Background Text --- */
 .bg-text-container {
     position: absolute;
     width: 100%;
@@ -27,26 +27,29 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    pointer-events: none; /* User can't click it */
+    pointer-events: none;
     z-index: 1;
 }
 
 .bg-text {
-    font-size: 15vw;
+    font-size: 16vw;
     font-weight: 900;
-    color: rgba(255, 255, 255, 0.03); /* Extremely subtle */
+    /* Increased opacity from 0.03 to 0.07 for better visibility */
+    color: rgba(255, 255, 255, 0.07); 
     margin: 0;
-    line-height: 0.9;
-    letter-spacing: -5px;
+    line-height: 0.85;
+    letter-spacing: -8px;
     text-transform: uppercase;
+    transition: color 0.5s ease;
 }
 
 .bg-text.outline {
     color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+    /* Thicker stroke for more "Premium" look */
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.12);
 }
 
-/* Dock Styling */
+/* --- Dock Styling --- */
 .mds-dock-wrapper {
     position: fixed;
     bottom: 40px;
@@ -74,35 +77,43 @@ body {
     background: var(--item-bg);
     border: 1px solid var(--glass-border);
     border-radius: 18px;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 1.6rem;
     cursor: pointer;
-    will-change: transform;
+    transition: all 0.3s ease;
 }
 
 .dock-item:hover {
     background: rgba(255, 255, 255, 0.15);
-    color: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
 }
 
+/* --- Fixed Tooltip (Labels) --- */
 .dock-item::after {
     content: attr(data-label);
     position: absolute;
-    top: -45px;
-    background: rgba(0,0,0,0.8);
+    top: -50px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
-    padding: 5px 12px;
-    font-size: 0.75rem;
-    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 10px;
     opacity: 0;
-    transform: translateY(10px);
-    transition: 0.3s;
+    transform: translateY(15px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
 }
 
 .dock-item:hover::after {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* --- CTA Button --- */
 .mds-cta-container {
     position: fixed;
     top: 40px;
@@ -124,7 +135,7 @@ body {
     font-weight: 600;
     font-size: 0.95rem;
     backdrop-filter: blur(10px);
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 0.4s ease;
     overflow: hidden;
 }
 
@@ -132,21 +143,16 @@ body {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
 }
 
 .btn-glow {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(99, 102, 241, 0.4) 0%, transparent 50%);
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(99, 102, 241, 0.5) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.3s;
     pointer-events: none;
 }
 
-.mds-btn:hover .btn-glow {
-    opacity: 1;
-}
+.mds-btn:hover .btn-glow { opacity: 1; }
